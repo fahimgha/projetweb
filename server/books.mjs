@@ -36,6 +36,22 @@ app.get("/getLibrary", async (req, res) => {
     res.json({ message });
   }
 });
+// Endpoint pour récupérer les tâches lu
+app.get("/getReadedBook", async (req, res) => {
+  const statusFilter = req.query.status;
+  try {
+    const collection = await connectToMongo("dbbooks", "books");
+
+    let query = {};
+    if (statusFilter) {
+      query.status = statusFilter; // Apply status filter if provided
+    }
+    const books = await collection.find(query).toArray();
+    res.json(books);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 app.post("/newBook", async (req, res) => {
   try {
