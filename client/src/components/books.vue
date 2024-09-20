@@ -1,4 +1,5 @@
 <script setup>
+import DeleteButton from "./deleteBook.vue";
 defineProps({
   books: Array,
 });
@@ -20,6 +21,7 @@ defineProps({
             <span id="button">Status</span>
             <p>{{ book.status }}</p>
           </div>
+          <DeleteButton :bookId="book._id" />
         </li>
       </ul>
     </div>
