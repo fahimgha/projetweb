@@ -1,46 +1,55 @@
 <script setup>
 import { ref } from "vue";
-const name = ref("");
-const author = ref("");
-const status = ref("");
+import { useBooksStore } from "../stores/booksStore";
+// const name = ref("");
+// const author = ref("");
+// const status = ref("");
 
-const addBook = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/newBook", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name.value, // Utiliser .value pour les variables ref
-        author: author.value,
-        status: status.value,
-      }),
-    });
+const newBook = ref({
+  name: "",
+  author: "",
+  status: "", // Par défaut
+});
 
-    // Gérer la réponse
-    const result = await response.json();
+const booksStore = useBooksStore();
+// const addBook = async () => {
+//   try {
+//     const response = await fetch("http://localhost:3000/newBook", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         name: name.value, // Utiliser .value pour les variables ref
+//         author: author.value,
+//         status: status.value,
+//       }),
+//     });
 
-    // Vérifier si l'ajout a été un succès
-    if (response.ok) {
-      alert("Livre ajouté avec succès!");
-      // Réinitialiser les champs du formulaire
-      name.value = "";
-      author.value = "";
-      status.value = "";
-    } else {
-      throw new Error(result.message || "Erreur lors de l'ajout du livre");
-    }
-  } catch (error) {
-    alert(
-      "Une erreur s'est produite lors de l'ajout du livre: " + error.message
-    );
-  }
-};
+//     // Gérer la réponse
+//     const result = await response.json();
+
+//     // Vérifier si l'ajout a été un succès
+//     if (response.ok) {
+//       alert("Livre ajouté avec succès!");
+//       // Réinitialiser les champs du formulaire
+//       name.value = "";
+//       author.value = "";
+//       status.value = "";
+//     } else {
+//       throw new Error(result.message || "Erreur lors de l'ajout du livre");
+//     }
+//   } catch (error) {
+//     alert(
+//       "Une erreur s'est produite lors de l'ajout du livre: " + error.message
+//     );
+//   }
+// };
 
 const checkForm = async (e) => {
   e.preventDefault();
-  await addBook();
+  booksStore.addBook(newBook.value);
+  newBook.value = { name: "", author: "", status: "à lire" };
 };
 </script>
 
@@ -50,16 +59,16 @@ const checkForm = async (e) => {
     <form @submit="checkForm" method="post">
       <div className="form-item">
         <label for="name">Nom du livre</label>
-        <input v-model="name" type="text" name="name" required />
+        <input v-model="newBook.name" type="text" name="name" required />
       </div>
 
       <div className="form-item">
         <label for="author">Auteur</label>
-        <input v-model="author" type="text" name="name" />
+        <input v-model="newBook.author" type="text" name="name" />
       </div>
       <div className="form-item">
         <label for="status">Status</label>
-        <select v-model="status" name="status" required>
+        <select v-model="newBook.status" name="status" required>
           <option value="" disabled>Choisissez le statut</option>
           <option value="lu">Lu</option>
           <option value="à lire">À lire</option>

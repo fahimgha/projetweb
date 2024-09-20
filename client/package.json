@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/vue": "^0.13.1",
+    "@emotion/css": "^11.13.0",
+    "pinia": "^2.2.2",
     "vue": "^3.4.37",
     "vue-router": "^4.4.5"
   },

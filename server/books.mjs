@@ -73,13 +73,36 @@ app.delete("/deleteBook/:id", async (req, res) => {
     const result = await collection.deleteOne({ _id: new ObjectId(idBook) });
 
     if (result.deletedCount === 1) {
-      res.status(200).send({ message: "Livre supprimé avec succès!" });
+      res.status(200).send({ message: "Livre edité avec succès!" });
     } else {
       res.status(404).send({ message: "Livre non trouvé!" });
     }
   } catch (error) {
-    console.error("Erreur lors de la suppression du livre:", error);
+    console.error("Erreur lors de la modification du livre:", error);
     res.status(500).send({ message: "Erreur serveur" });
+  }
+});
+
+app.put("/editBook/:id", async (req, res) => {
+  const idBook = req.params.id;
+  const updatedData = req.body; // Les nouvelles données du livre
+
+  try {
+    const collection = await connectToMongo("dbbooks", "books");
+
+    // Mettre à jour le livre avec l'ID
+    const result = await collection.updateOne(
+      { _id: new ObjectId(idBook) },
+      { $set: updatedData }
+    );
+
+    if (result.modifiedCount === 1) {
+      res.status(200).send({ message: "Livre mis à jour avec succès!" });
+    } else {
+      res.status(404).send({ message: "Livre non trouvé!" });
+    }
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du livre:", error);
   }
 });
 // Lancer le serveur
