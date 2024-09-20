@@ -1,32 +1,20 @@
 <script setup>
-import Books from "./components/books.vue";
-import AddBook from "./components/addBook.vue";
+import NavBar from "./components/navBar.vue";
 import { ref, computed } from "vue";
-
-const books = ref([]);
-
-fetch("http://localhost:3000/getLibrary")
-  .then((response) => response.json())
-  .then((backendBooks) => {
-    books.value = backendBooks;
-    // console.log(backendBooks);
-  });
 </script>
 
 <template>
-  <div>
+  <div className="app">
     <h1>Track Books</h1>
-    <div className="app">
-      <Books :books="books" />
-      <AddBook />
-    </div>
+    <NavBar />
   </div>
 </template>
 
 <style scoped>
 .app {
   display: flex;
-  align-items: start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 }
 </style>
