@@ -24,7 +24,9 @@ defineProps({
             <p>{{ book.status }}</p>
           </div>
           <DeleteButton :bookId="book._id" />
-          <EditBook :bookId="book._id" />
+          <div>
+            <EditBook :bookId="book._id" />
+          </div>
         </li>
       </ul>
     </div>

@@ -15,29 +15,32 @@ var clicked = ref(false);
 const changeToForm = () => {
   clicked.value = true;
 };
-const editBook = () => {
+const editBook = async () => {
   try {
-    const response = fetch(`http://localhost:3000/editBook/${props.bookId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newBook.value),
-    });
-
+    const response = await fetch(
+      `http://localhost:3000/editBook/${props.bookId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newBook.value),
+      }
+    );
+    console.log(newBook.value);
     if (response.ok) {
-      console.log("Livre supprimé avec succès");
+      console.log("Livre edité avec succès");
       // Vous pouvez ajouter une logique pour actualiser la liste des livres ici
     } else {
-      console.error("Erreur lors de la suppression du livre");
+      console.error("Erreur lors de la modification du livre");
     }
   } catch (error) {
-    console.error("Erreur lors de la requête DELETE:", error);
+    console.error("Erreur lors de la requête PUT:", error);
   }
 };
 const checkForm = async (e) => {
   e.preventDefault();
-  await editBook(props.bookId);
+  await editBook();
 };
 </script>
 
@@ -50,15 +53,21 @@ const checkForm = async (e) => {
       <form @submit="checkForm" method="post">
         <div className="form-item">
           <label for="name">Nom du livre</label>
-          <input v-model="newBook.name" type="text" name="name" required />
+          <input
+            id="name"
+            v-model="newBook.name"
+            type="text"
+            name="name"
+            required
+          />
         </div>
         <div className="form-item">
           <label for="author">Auteur</label>
-          <input v-model="newBook.author" type="text" name="name" />
+          <input id="author" v-model="newBook.author" type="text" name="name" />
         </div>
         <div className="form-item">
           <label for="status">Status</label>
-          <select v-model="newBook.status" name="status" required>
+          <select id="status" v-model="newBook.status" name="status" required>
             <option value="" disabled>Choisissez le statut</option>
             <option value="lu">Lu</option>
             <option value="à lire">À lire</option>
