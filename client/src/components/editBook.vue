@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import { useBooksStore } from "../stores/booksStore";
+
+const booksStore = useBooksStore();
 
 const props = defineProps({
   bookId: String,
@@ -15,32 +18,33 @@ var clicked = ref(false);
 const changeToForm = () => {
   clicked.value = true;
 };
-const editBook = async () => {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/editBook/${props.bookId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newBook.value),
-      }
-    );
-    console.log(newBook.value);
-    if (response.ok) {
-      console.log("Livre edité avec succès");
-      // Vous pouvez ajouter une logique pour actualiser la liste des livres ici
-    } else {
-      console.error("Erreur lors de la modification du livre");
-    }
-  } catch (error) {
-    console.error("Erreur lors de la requête PUT:", error);
-  }
-};
+// const editBook = async () => {
+//   try {
+//     const response = await fetch(
+//       `http://localhost:3000/editBook/${props.bookId}`,
+//       {
+//         method: "PUT",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(newBook.value),
+//       }
+//     );
+//     console.log(newBook.value);
+//     if (response.ok) {
+//       console.log("Livre edité avec succès");
+//       // Vous pouvez ajouter une logique pour actualiser la liste des livres ici
+//     } else {
+//       console.error("Erreur lors de la modification du livre");
+//     }
+//   } catch (error) {
+//     console.error("Erreur lors de la requête PUT:", error);
+//   }
+// };
 const checkForm = async (e) => {
   e.preventDefault();
-  await editBook();
+  await booksStore.editBook(newBook.value, props.bookId);
+  clicked.value = false;
 };
 </script>
 

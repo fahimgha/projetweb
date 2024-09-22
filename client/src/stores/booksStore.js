@@ -53,6 +53,32 @@ export const useBooksStore = defineStore("books", () => {
     }
   };
 
+  const editBook = async (newBook, bookId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/editBook/${bookId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newBook),
+      });
+
+      if (response.ok) {
+        console.log("Livre edité avec succès");
+
+        const index = books.value.findIndex((book) => book._id === bookId);
+        if (index !== -1) {
+          books.value[index] = { ...books.value[index], ...newBook };
+        }
+        // Vous pouvez ajouter une logique pour actualiser la liste des livres ici
+      } else {
+        console.error("Erreur lors de la modification du livre");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête PUT:", error);
+    }
+  };
+
   // const filterReadBooks = () => {
   //   return books.value.filter((book) => book.status === "lu");
   // };
@@ -64,5 +90,6 @@ export const useBooksStore = defineStore("books", () => {
     addBook,
     deleteBook,
     fetchReadedBooks,
+    editBook,
   };
 });

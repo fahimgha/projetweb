@@ -59,12 +59,18 @@ const checkForm = async (e) => {
     <form @submit="checkForm" method="post">
       <div className="form-item">
         <label for="name">Nom du livre</label>
-        <input v-model="newBook.name" type="text" name="name" required />
+        <input
+          id="name"
+          v-model="newBook.name"
+          type="text"
+          name="name"
+          required
+        />
       </div>
 
       <div className="form-item">
         <label for="author">Auteur</label>
-        <input v-model="newBook.author" type="text" name="name" />
+        <input id="author" v-model="newBook.author" type="text" name="name" />
       </div>
       <div className="form-item">
         <label for="status">Status</label>
