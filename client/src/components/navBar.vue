@@ -1,10 +1,17 @@
 <script setup>
-import { useRoute } from "vue-router";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "../stores/authStore";
+// const isAuthenticated = ref(!!localStorage.getItem("token")); // Vérifie si l'utilisateur est connecté
+const authStore = useAuthStore();
+const router = useRouter();
 
-const route = useRoute();
+const logout = () => {
+  authStore.logout();
+};
 
 const isActive = (path) => {
-  return route.path === path;
+  return router.path === path;
 };
 </script>
 
@@ -23,6 +30,7 @@ const isActive = (path) => {
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <router-link
                 to="/"
+                v-if="authStore.isAuthenticated"
                 class="rounded-md px-3 py-2 text-sm font-medium"
                 exact-active-class="bg-gray-900 text-white"
                 active-class="text-white"
@@ -32,6 +40,7 @@ const isActive = (path) => {
               <!-- <a href="#"  aria-current="page">Dashboard</a> -->
               <router-link
                 to="/addBook"
+                v-if="authStore.isAuthenticated"
                 class="rounded-md px-3 py-2 text-sm font-medium"
                 exact-active-class="bg-gray-900 text-white"
                 active-class="text-white"
@@ -42,6 +51,7 @@ const isActive = (path) => {
               >
               <router-link
                 to="/login"
+                v-if="!authStore.isAuthenticated"
                 class="rounded-md px-3 py-2 text-sm font-medium"
                 exact-active-class="bg-gray-900 text-white"
                 active-class="text-white"
@@ -50,8 +60,12 @@ const isActive = (path) => {
                 }"
                 >Connexion</router-link
               >
+              <button v-if="authStore.isAuthenticated" @click="logout">
+                Déconnexion
+              </button>
               <router-link
                 to="/signup"
+                v-if="!authStore.isAuthenticated"
                 class="rounded-md px-3 py-2 text-sm font-medium"
                 exact-active-class="bg-gray-900 text-white"
                 active-class="text-white"

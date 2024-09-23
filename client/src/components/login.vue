@@ -28,8 +28,13 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "../stores/authStore";
 const username = ref("");
 const password = ref("");
+
+const router = useRouter();
+const authStore = useAuthStore();
 
 const submitForm = async () => {
   //   const url = this.isLogin ? 'http://localhost:3000/login' : 'http://localhost:3000/signup';
@@ -51,9 +56,9 @@ const submitForm = async () => {
       throw new Error(data.message || "An error occurred");
     }
 
-    localStorage.setItem("token", data.token); // Stockage du token
+    authStore.login(data.token); // Stockage du token
     alert("Login successful!");
-    // this.$router.push("/protected"); // Redirection vers une page protégée
+    router.push("/");
   } catch (error) {
     alert(error.message);
   }
