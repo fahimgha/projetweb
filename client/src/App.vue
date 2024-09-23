@@ -1,13 +1,9 @@
 <script setup>
 import NavBar from "./components/navBar.vue";
-import { ref, computed } from "vue";
 </script>
 
 <template>
-  <div className="app">
-    <h1>Track Books</h1>
-    <NavBar />
-  </div>
+  <NavBar />
 </template>
 
 <style scoped>

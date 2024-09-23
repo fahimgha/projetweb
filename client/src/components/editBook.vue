@@ -18,29 +18,6 @@ var clicked = ref(false);
 const changeToForm = () => {
   clicked.value = true;
 };
-// const editBook = async () => {
-//   try {
-//     const response = await fetch(
-//       `http://localhost:3000/editBook/${props.bookId}`,
-//       {
-//         method: "PUT",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(newBook.value),
-//       }
-//     );
-//     console.log(newBook.value);
-//     if (response.ok) {
-//       console.log("Livre edité avec succès");
-//       // Vous pouvez ajouter une logique pour actualiser la liste des livres ici
-//     } else {
-//       console.error("Erreur lors de la modification du livre");
-//     }
-//   } catch (error) {
-//     console.error("Erreur lors de la requête PUT:", error);
-//   }
-// };
 const checkForm = async (e) => {
   e.preventDefault();
   await booksStore.editBook(newBook.value, props.bookId);
@@ -51,8 +28,17 @@ const checkForm = async (e) => {
 <template>
   <div class="edit-book">
     <div v-if="!clicked">
-      <button @click="changeToForm()">Edit</button>
+      <div>
+        <button
+          @click="changeToForm()"
+          class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+          type="button"
+        >
+          Editer
+        </button>
+      </div>
     </div>
+
     <div v-else>
       <form @submit="checkForm" method="post">
         <div className="form-item">

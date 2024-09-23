@@ -1,5 +1,7 @@
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import cors from "cors";
 const app = express();
 const port = 3000;
@@ -104,6 +106,52 @@ app.put("/editBook/:id", async (req, res) => {
   } catch (error) {
     console.error("Erreur lors de la mise à jour du livre:", error);
   }
+});
+
+// Endpoint pour l'inscription
+app.post("/signup", async (req, res) => {
+  const { username, password } = req.body;
+
+  const collection = await connectToMongo("dbbooks", "users");
+  const existingUser = await collection.findOne({ username });
+
+  if (existingUser) {
+    return res.status(400).json({ message: "L'utilisateur existe déjà." });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = { username, password: hashedPassword };
+
+  try {
+    await collection.insertOne(newUser);
+    res.status(201).json({ message: "Utilisateur créé avec succès." });
+  } catch (error) {
+    console.error("Erreur lors de la création de l'utilisateur:", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+// Endpoint pour la connexion
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  const collection = await connectToMongo("dbbooks", "users");
+  const user = await collection.findOne({ username });
+
+  if (!user) {
+    return res.status(404).json({ message: "Nom d'utilisateur non trouvé." });
+  }
+
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+  if (!isPasswordMatch) {
+    return res.status(401).json({ message: "Mot de passe incorrect." });
+  }
+
+  // Générer un token JWT
+  const token = jwt.sign({ id: user._id }, "your_secret_key", {
+    expiresIn: "1h",
+  });
+  res.status(200).json({ token });
 });
 // Lancer le serveur
 app.listen(port, () => {

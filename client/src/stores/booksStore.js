@@ -36,6 +36,8 @@ export const useBooksStore = defineStore("books", () => {
         method: "DELETE",
       });
       books.value = books.value.filter((book) => book._id !== bookId);
+
+      await fetchReadedBooks();
     } catch (error) {
       console.error("Erreur lors de la suppression du livre:", error);
     }
@@ -70,7 +72,8 @@ export const useBooksStore = defineStore("books", () => {
         if (index !== -1) {
           books.value[index] = { ...books.value[index], ...newBook };
         }
-        // Vous pouvez ajouter une logique pour actualiser la liste des livres ici
+
+        await fetchReadedBooks();
       } else {
         console.error("Erreur lors de la modification du livre");
       }

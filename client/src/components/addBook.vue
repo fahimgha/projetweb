@@ -1,9 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import { useBooksStore } from "../stores/booksStore";
-// const name = ref("");
-// const author = ref("");
-// const status = ref("");
 
 const newBook = ref({
   name: "",
@@ -12,39 +9,6 @@ const newBook = ref({
 });
 
 const booksStore = useBooksStore();
-// const addBook = async () => {
-//   try {
-//     const response = await fetch("http://localhost:3000/newBook", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         name: name.value, // Utiliser .value pour les variables ref
-//         author: author.value,
-//         status: status.value,
-//       }),
-//     });
-
-//     // Gérer la réponse
-//     const result = await response.json();
-
-//     // Vérifier si l'ajout a été un succès
-//     if (response.ok) {
-//       alert("Livre ajouté avec succès!");
-//       // Réinitialiser les champs du formulaire
-//       name.value = "";
-//       author.value = "";
-//       status.value = "";
-//     } else {
-//       throw new Error(result.message || "Erreur lors de l'ajout du livre");
-//     }
-//   } catch (error) {
-//     alert(
-//       "Une erreur s'est produite lors de l'ajout du livre: " + error.message
-//     );
-//   }
-// };
 
 const checkForm = async (e) => {
   e.preventDefault();
@@ -54,7 +18,7 @@ const checkForm = async (e) => {
 </script>
 
 <template>
-  <div id="app">
+  <!-- <div id="app">
     <h2>Ajouter un livre</h2>
     <form @submit="checkForm" method="post">
       <div className="form-item">
@@ -84,6 +48,50 @@ const checkForm = async (e) => {
       <p>
         <input type="submit" value="Submit" />
       </p>
+    </form>
+  </div> -->
+
+  <div class="container">
+    <h2>Ajouter un livre</h2>
+    <form
+      @submit="checkForm"
+      method="post"
+      class="bg-blue text-center w-1/3 px-3 py-4 text-white mx-auto rounded"
+    >
+      <input
+        type="text"
+        v-model="newBook.name"
+        placeholder="nom du livre"
+        class="block w-full mx-auto text-sm py-2 px-3 rounded"
+      />
+      <input
+        type="text"
+        v-model="newBook.author"
+        placeholder="auteur"
+        class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
+      />
+      <input
+        type="text"
+        placeholder="avis"
+        class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
+      />
+      <select
+        v-model="newBook.status"
+        class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
+        name="status"
+        required
+      >
+        <option value="" disabled>Choisissez le statut</option>
+        <option value="à lire">À lire</option>
+        <option value="à lire">En lecture</option>
+        <option value="lu">Lu</option>
+      </select>
+      <button
+        type="submit"
+        class="bg-blue text-white font-bold py-2 px-4 rounded border block mx-auto w-full"
+      >
+        Ajouter
+      </button>
     </form>
   </div>
 </template>
