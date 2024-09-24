@@ -15,8 +15,8 @@ describe("Formulaire d'inscription", () => {
       cy.stub(win, "alert").as("alertStub");
     });
 
-    cy.get('input[id="username"]').type("tde");
-    cy.get('input[id="password"]').type("test");
+    cy.get('input[id="username"]').type("test1");
+    cy.get('input[id="password"]').type("test1");
 
     cy.get("form").submit();
 
@@ -44,12 +44,30 @@ describe("Formulaire d'inscription", () => {
     cy.url().should("include", "http://localhost:5173/");
   });
 
-  // Test 3 : Validation de champ vide
-  it("devrait afficher un message d'erreur si le champ email est vide", () => {
-    cy.visit("http://localhost:5173/#/contact");
+  it("Ajouter un livre", () => {
+    // 5. Maintenant, visiter la page d'ajout de livre
+    cy.visit("http://localhost:5173/addBook");
+    cy.get('input[id="username"]').type("test1");
+    cy.get('input[id="password"]').type("test1");
+    cy.get("form").submit();
+    cy.url().should("include", "http://localhost:5173/");
+    cy.get('a[id="addButton"]', { timeout: 10000 })
+      .should("be.visible")
+      .click();
 
-    cy.get('input[id="name"]').type("John Doe");
-    cy.get('textarea[id="message"]').type("welcome");
+    cy.get('input[id="name"]').should("be.visible").type("L'étranger"); // Assurez-vous que l'élément est visible
+    cy.get('input[id="author"]').should("be.visible").type("Albert Camus");
+    cy.get('select[id="status"]').should("be.visible").select("à lire");
+
+    cy.get("form").submit();
+    cy.url().should("include", "http://localhost:5173/");
+  });
+
+  // Test 4 : Validation de champ vide
+  it("devrait afficher un message d'erreur si le champ username est vide", () => {
+    cy.visit("http://localhost:5173/signup");
+
+    cy.get('input[id="password"]').type("abcdef");
 
     cy.get("form").submit();
 

@@ -60,22 +60,26 @@ const checkForm = async (e) => {
     >
       <input
         type="text"
+        id="name"
         v-model="newBook.name"
         placeholder="nom du livre"
         class="block w-full mx-auto text-sm py-2 px-3 rounded"
       />
       <input
         type="text"
+        id="author"
         v-model="newBook.author"
         placeholder="auteur"
         class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
       />
       <input
         type="text"
+        id="avis"
         placeholder="avis"
         class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
       />
       <select
+        id="status"
         v-model="newBook.status"
         class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
         name="status"
@@ -83,7 +87,7 @@ const checkForm = async (e) => {
       >
         <option value="" disabled>Choisissez le statut</option>
         <option value="à lire">À lire</option>
-        <option value="à lire">En lecture</option>
+        <option value="En lecture">En lecture</option>
         <option value="lu">Lu</option>
       </select>
       <button
