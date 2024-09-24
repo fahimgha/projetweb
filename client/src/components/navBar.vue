@@ -7,6 +7,7 @@ const router = useRouter();
 
 const logout = () => {
   authStore.logout();
+  router.push("/login");
 };
 
 const isActive = (path) => {
@@ -82,7 +83,7 @@ const isActive = (path) => {
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu">
-      <div class="space-y-1 px-2 pb-3 pt-2">
+      <div class="space-y-1 px-2 pt-2">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a
           href="#"

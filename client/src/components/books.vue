@@ -8,42 +8,47 @@ defineProps({
 </script>
 
 <template>
-  <div class="">
-    <h1 class="text-xl">Ma Bibliothèque</h1>
-    <div
-      v-for="book in books"
-      class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72"
-    >
-      <div class="p-6">
-        <h5
-          class="block mb-2 font-sans text-xl antialiased font-semibold tracking-normal text-blue-gray-900"
-        >
-          {{ book.name }}
-        </h5>
-        <div class="flex">
-          <div
-            class="text-xs text-sky-700 bg-sky-500/50 rounded p-1 font-extrabold"
+  <div>
+    <div>
+      <h1 class="text-xl font-semibold text-left">Tous mes livres :</h1>
+    </div>
+    <div class="flex flex-wrap justify-start gap-6">
+      <div
+        v-for="book in books"
+        class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-72"
+        style="width: 320px"
+      >
+        <div class="p-6">
+          <h5
+            class="block mb-2 font-sans text-xl antialiased font-semibold tracking-normal text-blue-gray-900"
           >
-            AUTEUR
+            {{ book.name }}
+          </h5>
+          <div class="flex gap-2 mb-2">
+            <div
+              class="text-xs text-sky-700 bg-sky-500/50 rounded p-1 font-extrabold"
+            >
+              AUTEUR
+            </div>
+            <p class="flex font-sans font-light text-inherit mb-2">
+              {{ book.author }}
+            </p>
           </div>
-          <p class="flex font-sans font-light text-inherit mb-2">
-            {{ book.author }}
-          </p>
-        </div>
-        <div class="flex">
-          <div
-            class="text-xs text-sky-700 bg-sky-500/50 rounded p-1 font-extrabold"
-          >
-            STATUS
+          <div class="flex gap-2">
+            <div
+              class="text-xs text-sky-700 bg-sky-500/50 rounded p-1 font-extrabold"
+            >
+              STATUS
+            </div>
+            <p class="flex font-light leading-relaxed text-inherit">
+              {{ book.status }}
+            </p>
           </div>
-          <p class="flex font-light leading-relaxed text-inherit">
-            {{ book.status }}
-          </p>
         </div>
-      </div>
-      <div class="p-6 pt-0 flex justify-around items-center">
-        <DeleteButton :bookId="book._id" />
-        <EditBook :bookId="book._id" />
+        <div class="p-6 pt-0 flex justify-around items-center">
+          <DeleteButton :bookId="book._id" />
+          <EditBook :bookId="book._id" />
+        </div>
       </div>
     </div>
   </div>

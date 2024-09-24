@@ -6,9 +6,12 @@ defineProps({
 </script>
 
 <template>
-  <div id="app">
-    <h2>Liste des Livres lu</h2>
-    <div v-if="readedbooks.length">
+  <div>
+    <div>
+      <h1 class="text-xl font-semibold text-left">Tous mes livres lus :</h1>
+    </div>
+
+    <div class="mt-6" v-if="readedbooks.length">
       <ul>
         <ul>
           <li v-for="book in readedbooks" :key="book._id">

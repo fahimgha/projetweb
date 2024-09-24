@@ -18,41 +18,8 @@ const checkForm = async (e) => {
 </script>
 
 <template>
-  <!-- <div id="app">
-    <h2>Ajouter un livre</h2>
-    <form @submit="checkForm" method="post">
-      <div className="form-item">
-        <label for="name">Nom du livre</label>
-        <input
-          id="name"
-          v-model="newBook.name"
-          type="text"
-          name="name"
-          required
-        />
-      </div>
-
-      <div className="form-item">
-        <label for="author">Auteur</label>
-        <input id="author" v-model="newBook.author" type="text" name="name" />
-      </div>
-      <div className="form-item">
-        <label for="status">Status</label>
-        <select v-model="newBook.status" name="status" required>
-          <option value="" disabled>Choisissez le statut</option>
-          <option value="lu">Lu</option>
-          <option value="à lire">À lire</option>
-        </select>
-      </div>
-
-      <p>
-        <input type="submit" value="Submit" />
-      </p>
-    </form>
-  </div> -->
-
   <div class="container">
-    <h2>Ajouter un livre</h2>
+    <h2 class="text-3xl mt-5 py-10">Ajouter un livre</h2>
     <form
       @submit="checkForm"
       method="post"
@@ -64,6 +31,7 @@ const checkForm = async (e) => {
         v-model="newBook.name"
         placeholder="nom du livre"
         class="block w-full mx-auto text-sm py-2 px-3 rounded"
+        required
       />
       <input
         type="text"
@@ -71,12 +39,7 @@ const checkForm = async (e) => {
         v-model="newBook.author"
         placeholder="auteur"
         class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
-      />
-      <input
-        type="text"
-        id="avis"
-        placeholder="avis"
-        class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
+        required
       />
       <select
         id="status"

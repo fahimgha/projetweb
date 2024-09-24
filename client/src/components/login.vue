@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2 class="text-3xl mt-5 py-10">Se connecter</h2>
     <form
       @submit.prevent="submitForm"
       class="bg-blue text-center w-1/3 px-3 py-4 text-white mx-auto rounded"
@@ -24,7 +25,7 @@
         type="submit"
         class="bg-blue text-white font-bold py-2 px-4 rounded border block mx-auto w-full"
       >
-        Login
+        Connexion
       </button>
     </form>
   </div>

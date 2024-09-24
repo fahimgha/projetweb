@@ -40,33 +40,47 @@ const checkForm = async (e) => {
     </div>
 
     <div v-else>
-      <form @submit="checkForm" method="post">
-        <div className="form-item">
-          <label for="name">Nom du livre</label>
-          <input
-            id="name"
-            v-model="newBook.name"
-            type="text"
-            name="name"
-            required
-          />
-        </div>
-        <div className="form-item">
-          <label for="author">Auteur</label>
-          <input id="author" v-model="newBook.author" type="text" name="name" />
-        </div>
-        <div className="form-item">
-          <label for="status">Status</label>
-          <select id="status" v-model="newBook.status" name="status" required>
-            <option value="" disabled>Choisissez le statut</option>
-            <option value="lu">Lu</option>
-            <option value="à lire">À lire</option>
-          </select>
-        </div>
+      <form
+        @submit="checkForm"
+        method="post"
+        class="bg-blue text-center px-3 py-4 text-white mx-auto rounded"
+      >
+        <input
+          type="text"
+          id="name"
+          v-model="newBook.name"
+          placeholder="Nom du livre"
+          class="text-white block w-full mx-auto text-sm py-2 px-3 rounded"
+          required
+        />
+        <input
+          type="text"
+          id="author"
+          v-model="newBook.author"
+          placeholder="auteur"
+          class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
+          required
+        />
 
-        <p>
-          <input type="submit" value="Submit" />
-        </p>
+        <select
+          class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
+          id="status"
+          v-model="newBook.status"
+          name="status"
+          required
+        >
+          <option value="" disabled>Choisissez le statut</option>
+          <option value="lu">Lu</option>
+          <option value="en lecture">En lecture</option>
+          <option value="à lire">À lire</option>
+        </select>
+
+        <button
+          type="submit"
+          class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+        >
+          Modifier
+        </button>
       </form>
     </div>
   </div>

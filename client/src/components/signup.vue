@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2 class="text-3xl mt-5 py-10">Création d'un compte</h2>
     <form
       @submit.prevent="submitForm"
       class="bg-blue text-center w-1/3 px-3 py-4 text-white mx-auto rounded"
@@ -10,6 +11,7 @@
         v-model="username"
         placeholder="Username"
         class="block w-full mx-auto text-sm py-2 px-3 rounded"
+        required
       />
       <input
         type="text"
@@ -17,12 +19,13 @@
         v-model="password"
         placeholder="Password"
         class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
+        required
       />
       <button
         type="submit"
         class="bg-blue text-white font-bold py-2 px-4 rounded border block mx-auto w-full"
       >
-        Sign up
+        Créer mon compte
       </button>
     </form>
   </div>

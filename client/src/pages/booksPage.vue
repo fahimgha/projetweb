@@ -11,32 +11,18 @@ onMounted(() => {
   booksStore.fetchBooks();
   readedBooksStore.fetchReadedBooks();
 });
-
-// const books = ref([]);
-// const readedBooks = ref([]);
-
-// fetch("http://localhost:3000/getLibrary")
-//   .then((response) => response.json())
-//   .then((backendBooks) => {
-//     books.value = backendBooks;
-//     // console.log(backendBooks);
-//   });
-
-// fetch("http://localhost:3000/getReadedBook?status=lu")
-//   .then((response) => response.json())
-//   .then((backendBooks) => {
-//     readedBooks.value = backendBooks; // seulement les livres avec status = lu
-//   })
-//   .catch((error) => {
-//     console.error("Erreur lors de la récupération des livres:", error);
-//   });
 </script>
 
 <template>
   <div>
-    <div className="app">
-      <Books :books="booksStore.books" />
-      <ReadedBooks :readedbooks="readedBooksStore.readedBooks" />
+    <div class="app flex flex-col justify-center">
+      <div class="my-10">
+        <h1 class="text-xl font-semibold">Ma Bibliothèque</h1>
+      </div>
+      <div class="flex space-x-10">
+        <Books :books="booksStore.books" />
+        <ReadedBooks :readedbooks="readedBooksStore.readedBooks" />
+      </div>
     </div>
   </div>
 </template>
