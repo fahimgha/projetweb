@@ -1,0 +1,50 @@
+name: build-test-deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  backend-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.17.0"
+      - name: Install backend dependencies
+        working-directory: ./server
+        run: npm install
+      - name: Fix file permissions
+        working-directory: ./server
+        run: chmod +x ./node_modules/.bin/vitest
+      - name: Run backend tests
+        working-directory: ./server
+        run: npm run test
+
+  frontend-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.17.0"
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm install
+      - name: Run frontend
+        working-directory: ./client
+        run: npm run dev &
+      - name: Run backend
+        working-directory: ./server
+        run: node books.mjs &
+      - name: Wait for frontend server to start
+        run: sleep 10
+      - name: Run frontend tests
+        working-directory: ./client
+        run: npm run cypress:run
