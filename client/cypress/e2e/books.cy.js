@@ -6,7 +6,6 @@ describe("Formulaire d'inscription", () => {
     cy.visit("http://localhost:5173/signup");
     cy.get("form").should("be.visible");
   });
-
   // Test 2 : Soumission réussie du formulaire
   it("devrait soumettre le formulaire avec succès", () => {
     cy.visit("http://localhost:5173/signup");

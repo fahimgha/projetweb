@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@emotion/css": "^11.13.0",
     "pinia": "^2.2.2",
     "vue": "^3.4.37",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "cypress": "^12.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",
