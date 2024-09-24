@@ -6,12 +6,14 @@
     >
       <input
         type="text"
+        id="username"
         v-model="username"
         placeholder="Username"
         class="block w-full mx-auto text-sm py-2 px-3 rounded"
       />
       <input
         type="text"
+        id="password"
         v-model="password"
         placeholder="Password"
         class="block w-full mx-auto text-sm py-2 px-3 rounded my-3"
